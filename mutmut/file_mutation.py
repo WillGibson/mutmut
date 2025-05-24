@@ -154,7 +154,9 @@ class MutationVisitor(cst.CSTVisitor):
         # 2) decorators are executed when the function is defined, so we don't want to mutate their arguments and cause exceptions
         # 3) @property decorators break the trampoline signature assignment (which expects it to be a function)
         if isinstance(node, (cst.FunctionDef, cst.ClassDef)) and len(node.decorators):
-            return True
+            if (node.decorators[0].decorator.value != "typechecked"):
+                print("WJKG allow typechecked")
+                return True
 
         return False
 
